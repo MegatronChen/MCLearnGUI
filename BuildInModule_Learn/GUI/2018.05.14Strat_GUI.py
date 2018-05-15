@@ -144,17 +144,32 @@ print('\n')
 
 
 
-# Example8.6
-from tkinter import *
-from tkinter.messagebox import *
+# # Example8.6
+# from tkinter import *
+# from tkinter.messagebox import *
+#
+# def callback():
+#     if askyesno('Verify','Do you really want to quit?'):
+#         showwarning('Yes','Quit not yet implemented')
+#     else:
+#         showinfo('No','Quit has been cancelled')
+#
+# errmsg = 'Sorry, no Spam allowed!'
+# Button(text='Quit',command=callback).pack(fill=X)
+# Button(text='Spam',command=lambda:showerror('Spam',errmsg)).pack(fill=X)
+# mainloop()
 
-def callback():
-    if askyesno('Verify','Do you really want to quit?'):
-        showwarning('Yes','Quit not yet implemented')
-    else:
-        showinfo('No','Quit has been cancelled')
 
-errmsg = 'Sorry, no Spam allowed!'
-Button(text='Quit',command=callback).pack(fill=X)
-Button(text='Spam',command=lambda:showerror('Spam',errmsg)).pack(fill=X)
-mainloop()
+# Example8.8
+from tkinter.filedialog import askopenfile
+from tkinter.colorchooser import askcolor
+from tkinter.messagebox import askquestion,showerror
+from tkinter.simpledialog import askfloat
+
+demos={
+    'Open': askopenfile,
+    'Color': askcolor,
+    'Query': lambda: askquestion('Warning','You typed "rm*"\nConfirm?'),
+    'Error': lambda: showerror('Error!',"He's dead, Jim"),
+    'INput': lambda: askfloat('Entry','Entry credit card number')
+}
