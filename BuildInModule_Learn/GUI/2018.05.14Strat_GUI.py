@@ -60,3 +60,4 @@ print('\n')
 
 
 # 2018.05.15
+# Lenovo received
