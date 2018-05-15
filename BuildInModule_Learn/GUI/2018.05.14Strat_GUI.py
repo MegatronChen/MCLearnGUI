@@ -208,5 +208,8 @@ print('\n')
 # Demo().mainloop()
 
 
-import tkinter.filedialog
-help(tkinter.filedialog)
+# import tkinter.filedialog
+# help(tkinter.filedialog)
+from tkinter.filedialog import *
+# filelist = askopenfilenames()
+# print(type(filelist))
