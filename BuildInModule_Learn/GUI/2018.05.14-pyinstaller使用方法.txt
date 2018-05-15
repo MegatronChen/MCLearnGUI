@@ -1,0 +1,48 @@
+Python程序打包--pyinstaller库的使用
+2017年02月20日 19:35:52
+阅读数：3556
+简介：PyInstaller是一个十分有用的第三方库，通过对源文件打包，Python程序可以在没有安装 Python的环境中运行，也可以作为一个独立文件方便传递和管理。
+
+PyInstaller的官方网站址为http://www.pyinstaller.org/。
+
+安装：在命令行使用pip install pyinstaller安装即可。（win+r，输入cmd，打开命令行）
+
+使用：使用 PyInstaller库十分简单，假设python_test在D盘根目录下，则只需在命令行敲入如下指令：
+
+>pyinstaller D:\python_test.py
+
+执行完成后，将会生成dist和build两个文件夹。（文件生成位置与cmd起始位置有关）其中 ，build 目录是 pyinstaller存储临时文件的目录，可以安全删除。最终的打包程序在dist内部的python_test文件夹下。目录中其他文件是可执行文件python_test.exe的动态链接库。
+
+
+
+常用参数的使用方法如下：
+
+
+
+
+
+（1）-h
+
+pyinstaller 命令的常用参数使用通过在命令行中输入: >pyinstaller –h即可，截取常用其中一段如下图所示：
+
+ 
+
+（2）-i 或者--icon   && -w
+
+例如：--icon参数的使用如下：（指定打包程序使用的图标文件）
+
+>pyinstaller -F --icon="D:\a.ico" D:\python_test.py
+
+>pyinstaller -F -w -i D:\tmp\main.ico D:\python_test.py
+
+-F 表示生成单个可执行文件,执行后dist目录中出现了python_test.exe文件，没有任何依赖库，执行它即可。
+-w 表示去掉控制台窗口，这在GUI界面时非常有用。不过如果是命令行程序的话那就把这个选项删除吧！
+-i 表示可执行文件的图标
+
+
+
+使用 PyInstaller库需要注意以下问题：
+
+◆ 文件路径中不能出现空格和英文句号（.）；
+
+◆ 源文件必须是UTF-8编码，暂不支持其他编码类型。采用IDLE编写的源文件都保存为UTF -8编码形式，可直接使用即可。
