@@ -210,7 +210,7 @@ print('\n')
 
 # import tkinter.filedialog
 # help(tkinter.filedialog)
-from tkinter.filedialog import *
-filelist = askopenfilenames()
-print(type(filelist))
-print(list(filelist))
+# from tkinter.filedialog import *
+# filelist = askopenfilenames()
+# print(type(filelist))
+# print(list(filelist))
