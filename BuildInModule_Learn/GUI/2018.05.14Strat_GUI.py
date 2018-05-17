@@ -161,75 +161,95 @@ print('\n')
 
 
 
-# Example8.7
-from tkinter import *
-from tkinter.messagebox import askokcancel
-
-class Quitter(Frame):
-    def __init__(self,parent=None):
-        Frame.__init__(self,parent=None)
-        self.pack()
-        widget = Button(self,text='Quit',command=self.quit)
-        widget.pack(side=LEFT,expand=YES,fill=BOTH)
-
-    def quit(self):
-        ans = askokcancel('Verify exit','Really quit?')
-        if ans:
-            Frame.quit(self)
-
-
-# Example8.8
-from tkinter.filedialog import askopenfile
-from tkinter.colorchooser import askcolor
-from tkinter.messagebox import askquestion,showerror
-from tkinter.simpledialog import askfloat
-
-demos={
-    'Open': askopenfile,
-    'Color': askcolor,
-    'Query': lambda: askquestion('Warning','You typed "rm*"\nConfirm?'),
-    'Error': lambda: showerror('Error!',"He's dead, Jim"),
-    'iNput': lambda: askfloat('Entry','Entry credit card number')
-}
-
-
-# # Example8.9
+# # Example8.7
+# from tkinter import *
+# from tkinter.messagebox import askokcancel
+#
+# class Quitter(Frame):
+#     def __init__(self,parent=None):
+#         Frame.__init__(self,parent=None)
+#         self.pack()
+#         widget = Button(self,text='Quit',command=self.quit)
+#         widget.pack(side=LEFT,expand=YES,fill=BOTH)
+#
+#     def quit(self):
+#         ans = askokcancel('Verify exit','Really quit?')
+#         if ans:
+#             Frame.quit(self)
+#
+#
+# # Example8.8
+# from tkinter.filedialog import askopenfile
+# from tkinter.colorchooser import askcolor
+# from tkinter.messagebox import askquestion,showerror
+# from tkinter.simpledialog import askfloat
+#
+# demos={
+#     'Open': askopenfile,
+#     'Color': askcolor,
+#     'Query': lambda: askquestion('Warning','You typed "rm*"\nConfirm?'),
+#     'Error': lambda: showerror('Error!',"He's dead, Jim"),
+#     'iNput': lambda: askfloat('Entry','Entry credit card number')
+# }
+#
+#
+# # # Example8.9
+# # from tkinter import *
+# #
+# # class Demo(Frame):
+# #     def __init__(self,parent=None,**options):
+# #         Frame.__init__(self,parent,**options)
+# #         self.pack()
+# #         Label(self,text='Basic demos').pack()
+# #         for (key,value) in demos.items():
+# #             Button(self,text=key,command=value).pack(side=TOP,fill=BOTH)
+# #         Quitter(self).pack(side=TOP,fill=BOTH)
+# #
+# # Demo().mainloop()
+#
+#
+# # import tkinter.filedialog
+# # help(tkinter.filedialog)
+# # from tkinter.filedialog import *
+# # filelist = askopenfilenames()
+# # print(type(filelist))
+# # print(list(filelist))
+#
+#
+# # Example8.10
 # from tkinter import *
 #
 # class Demo(Frame):
-#     def __init__(self,parent=None,**options):
-#         Frame.__init__(self,parent,**options)
+#     def __init__(self,parent=None,):
+#         Frame.__init__(self,parent)
 #         self.pack()
 #         Label(self,text='Basic demos').pack()
-#         for (key,value) in demos.items():
-#             Button(self,text=key,command=value).pack(side=TOP,fill=BOTH)
+#         for key in demos:
+#             func = (lambda key= key: self.printit(key))
+#             Button(self,text=key,command=func).pack(side=TOP,fill=BOTH)
 #         Quitter(self).pack(side=TOP,fill=BOTH)
+#
+#     def printit(self,name):
+#         print(name,'returns =>',demos[name]())
 #
 # Demo().mainloop()
 
 
-# import tkinter.filedialog
-# help(tkinter.filedialog)
-# from tkinter.filedialog import *
-# filelist = askopenfilenames()
-# print(type(filelist))
-# print(list(filelist))
-
-
-# Example8.10
+# Example8.13
+import sys
 from tkinter import *
+# help(sys)
+makemodal = (len(sys.argv)>1)
+def dialog():
+    win = Toplevel()
+    Label(win,text='Hard drive reformatted!').pack()
+    Button(win,text='OK',command=win.destroy).pack()
+    if makemodal:
+        win.focus_set()
+        win.grab_set()
+        win.wait_window()
+    print('dialog exit')
 
-class Demo(Frame):
-    def __init__(self,parent=None,):
-        Frame.__init__(self,parent)
-        self.pack()
-        Label(self,text='Basic demos').pack()
-        for key in demos:
-            func = (lambda key= key: self.printit(key))
-            Button(self,text=key,command=func).pack(side=TOP,fill=BOTH)
-        Quitter(self).pack(side=TOP,fill=BOTH)
-
-    def printit(self,name):
-        print(name,'returns =>',demos[name]())
-
-Demo().mainloop()
+root = Tk()
+Button(root,text='group',command=dialog).pack()
+root.mainloop()
