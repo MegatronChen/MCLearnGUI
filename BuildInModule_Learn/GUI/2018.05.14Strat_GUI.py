@@ -259,7 +259,7 @@ print('\n')
 from tkinter import *
 
 def showPosEvent(event):
-    print('Widget=%s X=%s Y=%s' %(event.widget,enent.x,event.y))
+    print('Widget=%s X=%s Y=%s' %(event.widget,event.x,event.y))
 
 def showAllEvent(event):
     print(event)
@@ -312,7 +312,7 @@ widget.bind('<Double-1>',onDoubleLeftClick)
 widget.bind('<B1-Motion>',onLeftDrag)
 
 widget.bind('<KeyPress>',onKeyPress)
-widget.bind('<p>',onArrowKey)
+widget.bind('<Up>',onArrowKey)
 widget.bind('<Return>',onReturnKey)
 widget.focus()
 tkroot.title('Click Me')
