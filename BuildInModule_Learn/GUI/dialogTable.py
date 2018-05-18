@@ -1,3 +1,8 @@
+from tkinter.filedialog import askopenfile
+from tkinter.colorchooser import askcolor
+from tkinter.messagebox import askquestion,showerror
+from tkinter.simpledialog import askfloat
+
 demos={
     'Open': askopenfile,
     'Color': askcolor,
