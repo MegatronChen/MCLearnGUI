@@ -189,7 +189,7 @@ print('\n')
 #     'Color': askcolor,
 #     'Query': lambda: askquestion('Warning','You typed "rm*"\nConfirm?'),
 #     'Error': lambda: showerror('Error!',"He's dead, Jim"),
-#     'iNput': lambda: askfloat('Entry','Entry credit card number')
+#     'Nput': lambda: askfloat('Entry','Entry credit card number')
 # }
 #
 #
@@ -313,7 +313,7 @@ print('\n')
 # widget.bind('<B1-Motion>',onLeftDrag)
 #
 # widget.bind('<KeyPress>',onKeyPress)
-# widget.bind('<Up>',onArrowKey)
+# widget.bind('<p>',onArrowKey)
 # widget.bind('<Return>',onReturnKey)
 # widget.focus()
 # tkroot.title('Click Me')
@@ -337,3 +337,98 @@ print('\n')
 #
 # Quitter(root).pack(side=RIGHT)
 # root.mainloop()
+
+
+# Example8.18
+# from tkinter import *
+# import sys
+# print(sys.path)
+# from quitter import Quitter as Quitter
+
+# fields = 'Name','Job','Pay'
+
+# def fetch(entries):
+#     for entry in entries:
+#         print('Input => "%s"' % entry.get())
+#
+# def makeform(root,fields):
+#     entries = []
+#     for field in fields:
+#         row = Frame(root)
+#         lab = Label(row,width=5,text=field)
+#         ent = Entry(row)
+#         row.pack(side=TOP,fill=X)
+#         lab.pack(side=LEFT)
+#         ent.pack(side=RIGHT,expand=YES,fill=X)
+#         entries.append(ent)
+#     return entries
+
+# root = Tk()
+# ents = makeform(root,fields)
+# root.bind('<Return>',(lambda event: fetch(ents)))
+# Button(root,text='Fetch',command=(lambda:fetch(ents))).pack(side=LEFT)
+# Quitter(root).pack(side=RIGHT)
+# root.mainloop()
+
+
+# # Example8.19
+# from tkinter import *
+# from quitter import Quitter as Quitter
+#
+# fields = 'Name','Job','Pay'
+# def show(entries,popup):
+#     fetch(entries)
+#     popup.destroy()
+#
+# def ask():
+#     popup = Toplevel()
+#     ents = makeform(popup,fields)
+#     Button(popup,text='OK',command=(lambda:show(ents,popup))).pack()
+#     popup.grab_set()
+#     popup.focus_set()
+#     popup.wait_window()
+#
+# root = Tk()
+# Button(root,text='Dialog',command=ask).pack()
+# root.mainloop()
+
+
+# # Example8.20
+# from tkinter import *
+# from quitter import Quitter as Quitter
+#
+# fields = 'Name','Job','Pay'
+#
+# def fetch(variables):
+#     for variable in variables:
+#         print('Input => "%s"' % variable.get())
+#
+#
+# def makeform(root, fields):
+#     form = Frame(root)
+#     left = Frame(form)
+#     right = Frame(form)
+#     form.pack(fill=X)
+#     left.pack(side=LEFT)
+#     right.pack(side=RIGHT, expand=YES, fill=X)
+#
+#
+#     variables = []
+#     for field in fields:
+#         lab = Label(left, width=5, text=field)
+#         ent = Entry(right)
+#         lab.pack(side=TOP)
+#         ent.pack(side=TOP, fill=X)
+#         var = StringVar()
+#         ent.config(text=var)
+#         var.set('enter here')
+#         variables.append(var)
+#     return variables
+#
+# root = Tk()
+# vars = makeform(root,fields)
+# Button(root,text='Fetch',command=(lambda:fetch(vars))).pack(side=LEFT)
+# Quitter(root).pack(side=RIGHT)
+# root.bind('<Return>',(lambda event:fetch(vars)))
+# root.mainloop()
+
