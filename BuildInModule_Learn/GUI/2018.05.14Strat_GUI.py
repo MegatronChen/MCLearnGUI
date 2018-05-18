@@ -255,65 +255,85 @@ print('\n')
 # root.mainloop()
 
 
-# Example8.15
-from tkinter import *
+# # Example8.15
+# from tkinter import *
+# # help(event)
+#
+# def showPosEvent(event):
+#     print('Widget=%s X=%s Y=%s' %(event.widget,event.x,event.y))
+#
+# def showAllEvent(event):
+#     print(event)
+#     for attr in dir(event):
+#         if not attr.startswith('__'):
+#             print(attr,'=>',getattr(event,attr))
+#
+# def onKeyPress(event):
+#     print('got key press:',event.char)
+#
+# def onArrowKey(event):
+#     print('got up arrow key press')
+#
+# def onReturnKey(event):
+#     print('got return key press')
+#
+# def onLeftClick(event):
+#     print('got left mouse button clcik: ',end=' ')
+#     showPosEvent(event)
+#
+# def onRightClick(event):
+#     print('got right mouse button clcik: ',end=' ')
+#     showPosEvent(event)
+#
+# def onMiddleClick(event):
+#     print('got middle mouse button clcik: ',end=' ')
+#     showPosEvent(event)
+#     showAllEvent(event)
+#
+# def onLeftDrag(event):
+#     print('got left mouse button drag:',end=' ')
+#     showPosEvent(event)
+#
+# def onDoubleLeftClick(event):
+#     print('got double left mouse click',end=' ')
+#     showPosEvent(event)
+#     tkroot.quit()
+#
+# tkroot = Tk()
+# lablefont = ('courier',20,'bold')
+# widget = Label(tkroot,text='Hello bind world')
+# widget.config(bg='red',font=lablefont)
+# widget.config(height=5,width=20)
+# widget.pack(expand=YES,fill=BOTH)
+#
+# widget.bind('<Button-1>',onLeftClick)
+# widget.bind('<Button-3>',onRightClick)
+# widget.bind('<Button-2>',onMiddleClick)
+# widget.bind('<Double-1>',onDoubleLeftClick)
+# widget.bind('<B1-Motion>',onLeftDrag)
+#
+# widget.bind('<KeyPress>',onKeyPress)
+# widget.bind('<Up>',onArrowKey)
+# widget.bind('<Return>',onReturnKey)
+# widget.focus()
+# tkroot.title('Click Me')
+# tkroot.mainloop()
 
-def showPosEvent(event):
-    print('Widget=%s X=%s Y=%s' %(event.widget,event.x,event.y))
 
-def showAllEvent(event):
-    print(event)
-    for attr in dir(event):
-        if not attr.startswith('__'):
-            print(attr,'=>',getattr(event,attr))
-
-def onKeyPress(event):
-    print('got key press:',event.char)
-
-def onArrowKey(event):
-    print('got up arrow key press')
-
-def onReturnKey(event):
-    print('got return key press')
-
-def onLeftClick(event):
-    print('got left mouse button clcik: ',end=' ')
-    showPosEvent(event)
-
-def onRightClick(event):
-    print('got right mouse button clcik: ',end=' ')
-    showPosEvent(event)
-
-def onMiddleClick(event):
-    print('got middle mouse button clcik: ',end=' ')
-    showPosEvent(event)
-    showAllEvent(event)
-
-def onLeftDrag(event):
-    print('got left mouse button drag:',end=' ')
-    showPosEvent(event)
-
-def onDoubleLeftClick(event):
-    print('got double left mouse click',end=' ')
-    showPosEvent(event)
-    tkroot.quit()
-
-tkroot = Tk()
-lablefont = ('courier',20,'bold')
-widget = Label(tkroot,text='Hello bind world')
-widget.config(bg='red',font=lablefont)
-widget.config(height=5,width=20)
-widget.pack(expand=YES,fill=BOTH)
-
-widget.bind('<Button-1>',onLeftClick)
-widget.bind('<Button-3>',onRightClick)
-widget.bind('<Button-2>',onMiddleClick)
-widget.bind('<Double-1>',onDoubleLeftClick)
-widget.bind('<B1-Motion>',onLeftDrag)
-
-widget.bind('<KeyPress>',onKeyPress)
-widget.bind('<Up>',onArrowKey)
-widget.bind('<Return>',onReturnKey)
-widget.focus()
-tkroot.title('Click Me')
-tkroot.mainloop()
+# # Example8.17
+# from tkinter import *
+# def fetch():
+#     print('input => "%s" ' % ent.get())
+#
+# root = Tk()
+# ent = Entry(root)
+# ent.insert(0,'Type words here')
+# ent.pack(side=TOP,fill=X)
+# ent.focus()
+# ent.bind('<Return>',(lambda event:fetch()))
+#
+# btn = Button(root,text='Fetch',command=fetch)
+# btn.pack(side=LEFT)
+#
+# Quitter(root).pack(side=RIGHT)
+# root.mainloop()
