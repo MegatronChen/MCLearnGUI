@@ -433,33 +433,146 @@ print('\n')
 # root.mainloop()
 
 
-# Example8.26
+# # Example8.22
+# from tkinter import *
+# from dialogTable import demos
+# from quitter import Quitter
+#
+# class Demo(Frame):
+#     def __init__(self,parent=None,**options):
+#         Frame.__init__(self,parent,**options)
+#         self.pack()
+#         self.tools()
+#         Label(self,text='Check demos').pack()
+#         self.vars = []
+#         for key in demos:
+#             var = IntVar()
+#             Checkbutton(self,text=key,variable=var,
+#                         command=demos[key]).pack(side=LEFT)
+#             self.vars.append(var)
+#
+#     def report(self):
+#         for var in self.vars:
+#             print(var.get(),end=' ')
+#         print()
+#
+#     def tools(self):
+#         frm = Frame(self)
+#         frm.pack(side=RIGHT)
+#         Button(frm,text='State',command=self.report).pack(fill=X)
+#         Quitter(frm).pack(fill=X)
+#
+# Demo().mainloop()
+
+
+# Example8.25
+# from tkinter import *
+# from dialogTable import demos
+# from quitter import Quitter
+#
+# class Demo(Frame):
+#     def __init__(self,parent=None,**options):
+#         Frame.__init__(self,parent,**options)
+#         self.pack()
+#         Label(self,text='Radio demos').pack(side=TOP)
+#         self.var = StringVar()
+#         for key in demos:
+#             Radiobutton(self,text=key,command=self.onPress,
+#                         variable=self.var,
+#                         value=key).pack(anchor=NW)
+#             self.var.set(key)
+#         Button(self,text='State',command=self.report).pack(fill=X)
+#         Quitter(self).pack(fill=X)
+#
+#     def onPress(self):
+#         pick = self.var.get()
+#         print('you pressed',pick)
+#         print('result:',demos[pick]())
+#
+#     def report(self):
+#         print(self.var.get())
+#
+# Demo().mainloop()
+
+
+
+# # Example8.26
+# from tkinter import *
+#
+# root = Tk()
+# var = StringVar()
+# for i in range(10):
+#     rad = Radiobutton(root,text=str(i),variable=var,value=str(i%3))
+#     rad.pack(side=LEFT)
+# var.set(' ')
+# root.mainloop()
+
+
+# # Example8.30
+# from tkinter import *
+# from dialogTable import demos
+# from quitter import Quitter
+#
+# class Demo(Frame):
+#     def __init__(self, parent=None, **options):
+#         Frame.__init__(self, parent, **options)
+#         self.pack()
+#         Label(self,text='Scale Demos').pack()
+#         self.var = IntVar()
+#         Scale(self,label='Pick demo number',
+#               command=self.onMove,
+#               variable=self.var,
+#               from_=0,
+#               to=len(demos)-1).pack()
+#         Scale(self, label='Pick demo number',
+#               command=self.onMove,
+#               variable=self.var,
+#               from_=0,
+#               to=len(demos) - 1,
+#               length=200,tickinterval=1,
+#               showvalue=YES,orient='horizontal').pack()
+#         Quitter(self).pack()
+#         Button(self,text='Run demo',command=self.onRun).pack(side=LEFT)
+#         Button(self,text='State',command=self.report).pack(side=RIGHT)
+#
+#     def onMove(self,value):
+#         print('in onMove',value)
+#
+#     def onRun(self):
+#         pos = self.var.get()
+#         print('You picked',pos)
+#         demo = list(demos.values())[pos]
+#         print(demo())
+#
+#     def report(self):
+#         print(self.var.get())
+#
+# print(list(demos.keys()))
+# Demo().mainloop()
+
+
+# # Example8.31
+# from tkinter import *
+# root = Tk()
+# scl = Scale(root,from_=-100,to=100,tickinterval=50,resolution=10)
+# scl.pack(expand=YES,fill=Y)
+#
+# def report():
+#     print(scl.get())
+#
+# Button(root,text='state',command=report).pack(side=RIGHT)
+#
+# root.mainloop()
+
+
+# Example8.32
 from tkinter import *
-from dialogTable import demos
 from quitter import Quitter
 
-class Demo(Frame):
-    def __init__(self,parent=None,**options):
-        Frame.__init__(self,parent,**options)
-        self.pack()
-        self.tools()
-        Label(self,text='Check demos').pack()
-        self.vars = []
-        for key in demos:
-            var = IntVar()
-            Checkbutton(self,text=key,variable=var,
-                        command=demos[key]).pack(side=LEFT)
-            self.vars.append(var)
+demoModules = ['demoDlg','demoCheck','demoRadio','demoScale']
+parts = []
+# help(__import__)
 
-    def report(self):
-        for var in self.vars:
-            print(var.get(),end=' ')
-        print()
-
-    def tools(self):
-        frm = Frame(self)
-        frm.pack(side=RIGHT)
-        Button(frm,text='State',command=self.report).pack(fill=X)
-        Quitter(frm).pack(fill=X)
-
-Demo().mainloop()
+def addComponents(root):
+    for demo in demoModules:
+        module = __import__(demo)
