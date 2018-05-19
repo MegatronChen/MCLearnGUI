@@ -565,35 +565,84 @@ print('\n')
 # root.mainloop()
 
 
-# Example8.32
+# # Example8.32
+# from tkinter import *
+# from quitter import Quitter
+#
+# demoModules = ['demoDlg','demoCheck','demoRadio','demoScale']
+# parts = []
+# # help(__import__)
+#
+# def addComponents(root):
+#     for demo in demoModules:
+#         module = __import__(demo)
+#         part = module.Demo(root)
+#         part.config(bd=2,relief=GROOVE)
+#         part.pack(side=LEFT,expand=YES,fill=BOTH)
+#         parts.append(part)
+#
+# def dumpState():
+#     for part in parts:
+#         print(part.__module__ + ':',end=' ')
+#         if hasattr(part,'report'):
+#             part.report()
+#         else:
+#             print('none')
+#
+# root = Tk()
+# root.title('Frame')
+# Label(root,text='Multiple Frame demo',bg='white').pack()
+# Button(root,text='States',command=dumpState).pack(fill=X)
+# Quitter(root).pack(fill=X)
+# addComponents(root)
+# root.mainloop()
+
+
+# Example8.36
 from tkinter import *
-from quitter import Quitter
 
-demoModules = ['demoDlg','demoCheck','demoRadio','demoScale']
-parts = []
-# help(__import__)
+class Checkbar(Frame):
+    def __init__(self,parent=None,picks=[],side=LEFT,anchor=W):
+        Frame.__init__(self,parent)
+        self.vars = []
+        for pick in picks:
+            var = IntVar()
+            chk = Checkbutton(self,text=pick,variable=var)
+            chk.pack(side=side,anchor=anchor,expand=YES)
+            self.vars.append(var)
 
-def addComponents(root):
-    for demo in demoModules:
-        module = __import__(demo)
-        part = module.Demo(root)
-        part.config(bd=2,relief=GROOVE)
-        part.pack(side=LEFT,expand=YES,fill=BOTH)
-        parts.append(part)
+    def state(self):
+        return [var.get() for var in self.vars]
 
-def dumpState():
-    for part in parts:
-        print(part.__module__ + ':',end=' ')
-        if hasattr(part,'report'):
-            part.report()
-        else:
-            print('none')
+class Radiobar(Frame):
+    def __init__(self,parent=None,picks=[],side=LEFT,anchor=W):
+        Frame.__init__(self,parent)
+        self.var = StringVar()
+        self.var.set(picks[0])
+        for pick in picks:
+            rad = Radiobutton(self,text=pick,value=pick,variable=self.var)
+            rad.pack(side=side,anchor=anchor,expand=YES)
 
-root = Tk()
-root.title('Frame')
-Label(root,text='Multiple Frame demo',bg='white').pack()
-Button(root,text='States',command=dumpState).pack(fill=X)
-Quitter(root).pack(fill=X)
-addComponents(root)
-root.mainloop()
+    def state(self):
+        return self.var.get()
 
+if __name__ == '__main__':
+    root = Tk()
+    lng = Checkbar(root,['Python','C#','Java','C++'])
+    gui = Radiobar(root,['win','x11','mac'],side=TOP,anchor=NW)
+    tg1 = Checkbar(root,['All'])
+
+    gui.pack(side=LEFT)
+    lng.pack(side=TOP,fill=X)
+    tg1.pack(side=LEFT)
+    lng.config(relief=GROOVE,bd=2)
+    gui.config(relief=RIDGE,bd=2)
+
+    def allstates():
+        print(gui.state(),lng.state(),tg1.state())
+
+    from quitter import Quitter
+
+    Quitter(root).pack(side=RIGHT)
+    Button(root,text='Peek',command=allstates).pack(side=RIGHT)
+    root.mainloop()
