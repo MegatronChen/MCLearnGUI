@@ -48,8 +48,10 @@ def TransformName(CurrentPath,PPTFiles):
         shutil.rmtree('_TemporaryDir')
     os.mkdir('_TemporaryDir')
     TempDir = os.path.join(CurrentPath,'_TemporaryDir')
+    print('TempDir:',TempDir)
     os.chdir(TempDir)
     TargetDir = os.getcwd()
+    print('TargetDir:',TargetDir)
 
     for originPPT in PPTFiles:
         originpath,originfname = os.path.split(originPPT)
@@ -82,8 +84,8 @@ print(PPTFiles)
 
 PPTPages = []
 for EveryPPT in PPTFiles:
-    print('\n')
-    print(EveryPPT)
+    # print('\n')
+    # print(EveryPPT)
     PPTPage = pptSlidesCount(EveryPPT)
     PPTPages.append(PPTPage)
 
