@@ -72,9 +72,6 @@ class PPTCounter(Frame):
 
         RegularPPTs = []
 
-        # os.chdir(CurrentPath)
-        # if os.path.exists('_TemporaryDir'):
-        #     shutil.rmtree('_TemporaryDir')
         os.mkdir('_TemporaryDir')
         TargetDir = os.path.join(CurrentPath, '_TemporaryDir')
 
