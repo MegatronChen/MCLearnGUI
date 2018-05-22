@@ -598,51 +598,200 @@ print('\n')
 # root.mainloop()
 
 
-# Example8.36
+# # Example8.36
+# from tkinter import *
+#
+# class Checkbar(Frame):
+#     def __init__(self,parent=None,picks=[],side=LEFT,anchor=W):
+#         Frame.__init__(self,parent)
+#         self.vars = []
+#         for pick in picks:
+#             var = IntVar()
+#             chk = Checkbutton(self,text=pick,variable=var)
+#             chk.pack(side=side,anchor=anchor,expand=YES)
+#             self.vars.append(var)
+#
+#     def state(self):
+#         return [var.get() for var in self.vars]
+#
+# class Radiobar(Frame):
+#     def __init__(self,parent=None,picks=[],side=LEFT,anchor=W):
+#         Frame.__init__(self,parent)
+#         self.var = StringVar()
+#         self.var.set(picks[0])
+#         for pick in picks:
+#             rad = Radiobutton(self,text=pick,value=pick,variable=self.var)
+#             rad.pack(side=side,anchor=anchor,expand=YES)
+#
+#     def state(self):
+#         return self.var.get()
+#
+# if __name__ == '__main__':
+#     root = Tk()
+#     lng = Checkbar(root,['Python','C#','Java','C++'])
+#     gui = Radiobar(root,['win','x11','mac'],side=TOP,anchor=NW)
+#     tg1 = Checkbar(root,['All'])
+#
+#     gui.pack(side=LEFT)
+#     lng.pack(side=TOP,fill=X)
+#     tg1.pack(side=LEFT)
+#     lng.config(relief=GROOVE,bd=2)
+#     gui.config(relief=RIDGE,bd=2)
+#
+#     def allstates():
+#         print(gui.state(),lng.state(),tg1.state())
+#
+#     from quitter import Quitter
+#
+#     Quitter(root).pack(side=RIGHT)
+#     Button(root,text='Peek',command=allstates).pack(side=RIGHT)
+#     root.mainloop()
+
+
+# # Example8.42
+# import PIL
+# # from PIL import ImageTk
+# import os,sys
+# from tkinter import *
+#
+# imgdir = 'images'
+# imgfile = 'python.gif'
+# if len(sys.argv) > 1:
+#     imgfile = sys.argv[1]
+#     imgpath = os.path.join(imgdir,imgfile)
+#
+# win = Tk()
+# win.title(imgfile)
+# imgobj = PhotoImage(file=imgpath)
+# Label(win,image=imgobj).pack()
+# print(imgobj.width(),imgobj.height())
+# win.mainloop()
+
+
+# # Example8.43
+# import os,sys
+# from tkinter import *
+# from PIL.ImageTk import PhotoImage
+#
+# imgdir = 'images'
+# imgfile = '1.jpg'
+# if len(sys.argv) > 1:
+#     imgfile = sys.argv[1]
+# imgpath = os.path.join(imgdir,imgfile)
+#
+# win = Tk()
+# win.title(imgfile)
+# imgobj = PhotoImage(file=imgpath)
+# Label(win,image=imgobj).pack()
+# win.mainloop()
+# print(imgobj.width(),imgobj.height())
+
+
+# # Example8.44
+# import os,sys
+# from tkinter import *
+# from PIL.ImageTk import PhotoImage
+#
+# imgdir = 'images'
+# if len(sys.argv) > 1:
+#     imgdir = sys.argv[1]
+# imgfiles = os.listdir(imgdir)
+#
+# main = Tk()
+# main.title('Viewer')
+# quit = Button(main,text='Quit All',command=main.quit,font=('courier',25))
+# quit.pack()
+# savephotos = []
+#
+# for imgfile in imgfiles:
+#     imgpath = os.path.join(imgdir,imgfile)
+#     win = Toplevel()
+#     win.title(imgfile)
+#     try:
+#         imgobj = PhotoImage(file=imgpath)
+#         Label(win,image=imgobj).pack()
+#         print(imgpath,imgobj.width(),imgobj.height())
+#         print('\n')
+#         savephotos.append(imgobj)
+#     except:
+#         errmsg = 'skipping %s\n %s' % (imgfile,sys.exc_info()[1])
+#         Label(win,text=errmsg).pack()
+#
+# main.mainloop()
+
+
+# Example8.45
+import os,sys,math
 from tkinter import *
+from PIL import Image
+from PIL.ImageTk import PhotoImage
+import pprint
 
-class Checkbar(Frame):
-    def __init__(self,parent=None,picks=[],side=LEFT,anchor=W):
-        Frame.__init__(self,parent)
-        self.vars = []
-        for pick in picks:
-            var = IntVar()
-            chk = Checkbutton(self,text=pick,variable=var)
-            chk.pack(side=side,anchor=anchor,expand=YES)
-            self.vars.append(var)
 
-    def state(self):
-        return [var.get() for var in self.vars]
+def makeThumbs(imgdir,size=(100,100),subdir='thumbs'):
+    thumbdir = os.path.join(imgdir,subdir)
+    if not os.path.exists(thumbdir):
+        os.mkdir(thumbdir)
 
-class Radiobar(Frame):
-    def __init__(self,parent=None,picks=[],side=LEFT,anchor=W):
-        Frame.__init__(self,parent)
-        self.var = StringVar()
-        self.var.set(picks[0])
-        for pick in picks:
-            rad = Radiobutton(self,text=pick,value=pick,variable=self.var)
-            rad.pack(side=side,anchor=anchor,expand=YES)
+    thumbs = []
+    for imgfile in os.listdir(imgdir):
+        thumbpath = os.path.join(thumbdir,imgfile)
+        if os.path.exists(thumbpath):
+            thumbobj = Image.open(thumbpath)
+            thumbs.append((imgfile,thumbobj))
+        else:
+            print('making',thumbpath)
+            imgpath = os.path.join(imgdir,imgfile)
+            try:
+                imgobj = Image.open(imgpath)
+                imgobj.thumbnail(size,Image.ANTIALIAS)
+                imgobj.save(thumbpath)
+                thumbs.append(imgfile,imgobj)
+            except:
+                print('Skipping:',imgpath,'\n')
 
-    def state(self):
-        return self.var.get()
+    return thumbs
+
+
+class ViewOne(Toplevel):
+    def __init__(self,imgdir,imgfile):
+        Toplevel.__init__(self)
+        self.title(imgfile)
+        imgpath = os.path.join(imgdir,imgfile)
+
+        imgobj = PhotoImage(file=imgpath)
+        Label(self,image=imgobj).pack()
+        print(imgpath,imgobj.width(),imgobj.height())
+        self.savephoto = imgobj
+
+
+def viewer(imgdir,kind=Toplevel,clos=None):
+    win = kind()
+    win.title('Viewer: ' + imgdir)
+    quit = Button(win,text='Quit',command=win.quit,bg='beige')
+    quit.pack(fill=X,side=BOTTOM)
+
+    thumbs = makeThumbs(imgdir)
+    if not clos:
+        clos = int(math.ceil(math.sqrt(len(thumbs))))
+
+    savephotos = []
+    while thumbs:
+        thumbsrow,thumbs = thumbs[:clos],thumbs[clos:]
+        row = Frame(win)
+        row.pack(fill=BOTH)
+        for (imgfile,imgobj) in thumbsrow:
+            # size = max(imgobj.size)
+            # print(imgobj.size)
+            photo = PhotoImage(imgobj)
+            link = Button(row,image=photo)
+            handler = lambda savefile=imgfile:ViewOne(imgdir,savefile)
+            link.config(command=handler)
+            link.pack(side=LEFT,expand=YES)
+            savephotos.append(photo)
+    return win,savephotos
 
 if __name__ == '__main__':
-    root = Tk()
-    lng = Checkbar(root,['Python','C#','Java','C++'])
-    gui = Radiobar(root,['win','x11','mac'],side=TOP,anchor=NW)
-    tg1 = Checkbar(root,['All'])
-
-    gui.pack(side=LEFT)
-    lng.pack(side=TOP,fill=X)
-    tg1.pack(side=LEFT)
-    lng.config(relief=GROOVE,bd=2)
-    gui.config(relief=RIDGE,bd=2)
-
-    def allstates():
-        print(gui.state(),lng.state(),tg1.state())
-
-    from quitter import Quitter
-
-    Quitter(root).pack(side=RIGHT)
-    Button(root,text='Peek',command=allstates).pack(side=RIGHT)
-    root.mainloop()
+    imgdir = (len(sys.argv) > 1 and sys.argv[1]) or 'images'
+    main,save = viewer(imgdir,kind=Tk)
+    main.mainloop()
