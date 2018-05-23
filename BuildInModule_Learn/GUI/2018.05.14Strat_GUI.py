@@ -798,35 +798,35 @@ print('\n')
 
 
 
-# Chapter9-from 2018.05.23
-# Example9.1
-from tkinter import *
-from tkinter.messagebox import *
-
-def notdone():
-    showerror('Not implemented', 'Not yet available')
-
-def makemenu(win):
-    top = Menu(win)
-    win.config(menu=top)
-
-    file = Menu(top)
-    file.add_command(label='New...',command=notdone,underline=0)
-    file.add_command(label='Open...',command=notdone,underline=0)
-    file.add_command(label='Quit...',command=win.quit,underline=0)
-    top.add_cascade(label='File',menu=file,underline=0)
-
-    edit = Menu(top,tearoff=False)
-    edit.add_command(label='Cut',command=notdone,underline=0)
-    edit.add_command(label='Paste',command=notdone,underline=0)
-    edit.add_separator()
-    top.add_cascade(label='Edit',menu=edit,underline=0)
-
-    submenu = Menu(edit,tearoff=False)
-    submenu.add_command(label='Spam',command=win.quit,underline=0)
-    submenu.add_command(label='Eggs',command=notdone,underline=0)
-    edit.add_cascade(label='Stuff',menu=submenu,underline=0)
-
+# # Chapter9-from 2018.05.23
+# # Example9.1
+# from tkinter import *
+# from tkinter.messagebox import *
+#
+# def notdone():
+#     showerror('Not implemented', 'Not yet available')
+#
+# def makemenu(win):
+#     top = Menu(win)
+#     win.config(menu=top)
+#
+#     file = Menu(top)
+#     file.add_command(label='New...',command=notdone,underline=0)
+#     file.add_command(label='Open...',command=notdone,underline=0)
+#     file.add_command(label='Quit...',command=win.quit,underline=0)
+#     top.add_cascade(label='File',menu=file,underline=0)
+#
+#     edit = Menu(top,tearoff=False)
+#     edit.add_command(label='Cut',command=notdone,underline=0)
+#     edit.add_command(label='Paste',command=notdone,underline=0)
+#     edit.add_separator()
+#     top.add_cascade(label='Edit',menu=edit,underline=0)
+#
+#     submenu = Menu(edit,tearoff=False)
+#     submenu.add_command(label='Spam',command=win.quit,underline=0)
+#     submenu.add_command(label='Eggs',command=notdone,underline=0)
+#     edit.add_cascade(label='Stuff',menu=submenu,underline=0)
+#
 # if __name__ == '__main__':
 #     root = Tk()
 #     root.title('menu_win')
@@ -837,14 +837,182 @@ def makemenu(win):
 #     root.mainloop()
 
 
-# Example9.2
-root = Tk()
-for i in range(3):
-    win = Toplevel(root)
-    makemenu(win)
-    Label(win,bg='black',height=5,width=25).pack(expand=YES,fill=BOTH)
-Button(root,text='Bye',command=root.quit).pack()
-root.mainloop()
+# # Example9.2
+# root = Tk()
+# for i in range(3):
+#     win = Toplevel(root)
+#     makemenu(win)
+#     Label(win,bg='black',height=5,width=25).pack(expand=YES,fill=BOTH)
+# Button(root,text='Bye',command=root.quit).pack()
+# root.mainloop()
 
 
+# # Example9.3
+# from tkinter import *
+# from tkinter.messagebox import *
+#
+# def notdone():
+#     showerror('Not implemented', 'Not yet available')
+#
+# def makemenu(parent):
+#     menubar = Frame(parent)
+#     menubar.pack(side=TOP,fill=X)
+#
+#     fbutton = Menubutton(menubar,text='File',underline=0)
+#     fbutton.pack(side=LEFT)
+#     file = Menu(fbutton)
+#     file.add_command(label='New...', command=notdone, underline=0)
+#     file.add_command(label='Open...',command=notdone,underline=0)
+#     file.add_command(label='Quit...',command=parent.quit,underline=0)
+#     fbutton.config(menu=file)
+#
+#     ebutton = Menubutton(menubar,text='Edit',underline=0)
+#     ebutton.pack(side=LEFT)
+#     edit = Menu(ebutton,tearoff=False)
+#     edit.add_command(label='Cut', command=notdone, underline=0)
+#     edit.add_command(label='Paste',command=notdone,underline=0)
+#     edit.add_separator()
+#     ebutton.config(menu=edit)
+#
+#     submenu = Menu(edit,tearoff=True)
+#     submenu.add_command(label='Spam', command=parent.quit, underline=0)
+#     submenu.add_command(label='Eggs',command=notdone,underline=0)
+#     edit.add_cascade(label='Stuff',menu=submenu,underline=0)
+#
+#     return menubar
 
+# if __name__ == '__main__':
+#     root = Tk()
+#     root.title('menu_frm')
+#     makemenu(root)
+#     msg = Label(root, text='Window menu basics')
+#     msg.pack(expand=YES,fill=BOTH)
+#     msg.config(relief=SUNKEN,width=40,height=7,bg='beige')
+#     root.mainloop()
+
+
+# # Example9.4
+# root = Tk()
+# for i in range(2):
+#     mnu = makemenu(root)
+#     mnu.config(bd=2,relief=RAISED)
+#     Label(root,bg='black',height=5,width=25).pack(expand=YES,fill=BOTH)
+# Button(root,text='Bye',command=root.quit).pack()
+# root.mainloop()
+
+
+# # Example9.5
+# root = Tk()
+# for i in range(3):
+#     frm = Frame()
+#     mnu = makemenu(frm)
+#     mnu.config(bd=2,relief=RAISED)
+#     frm.pack(expand=YES,fill=BOTH)
+#     Label(frm,bg='black',height=5,width=25).pack(expand=YES,fill=BOTH)
+# Button(root,text='Bye',command=root.quit).pack()
+# root.mainloop()
+
+
+# # Example9.6
+# from tkinter import *
+# root = Tk()
+# mbutton = Menubutton(root,text='Food')
+# picks = Menu(mbutton)
+# mbutton.config(menu=picks)
+# picks.add_command(label='spam',command=root.quit)
+# picks.add_command(label='eggs',command=root.quit)
+# picks.add_command(label='bacon',command=root.quit)
+# mbutton.pack()
+# mbutton.config(bg='white',bd=4,relief=RAISED)
+# root.mainloop()
+
+
+# # Example9.7
+# from tkinter import *
+# root = Tk()
+# var1 = StringVar()
+# var2 = StringVar()
+# opt1 = OptionMenu(root,var1,'spam','eggs','toast')
+# opt2 = OptionMenu(root,var2,'ham','bacon','sausage')
+# opt1.pack(fill=X)
+# opt2.pack(fill=X)
+# var1.set('spam')
+# var2.set('ham')
+#
+# def state():
+#     print(var1.get(),var2.get())
+#
+# Button(root,command=state,text='state').pack()
+# root.mainloop()
+
+
+# # Example9.8
+# from tkinter import *
+# from tkinter.messagebox import *
+# from PIL.ImageTk import PhotoImage
+#
+# class NewMenuDemo(Frame):
+#     def __init__(self,parent=None):
+#         Frame.__init__(self,parent)
+#         self.pack(expand=YES,fill=BOTH)
+#         self.createWidgets()
+#         self.master.title('Toolbars and Menus')
+#         self.master.iconname('tkpython')
+#
+#     def createWidgets(self):
+#         self.makeMenuBar()
+#         self.makeToolBar()
+#         L = Label(self,text='Menu and Toolbar Demo')
+#         L.config(relief=SUNKEN,width=40,height=10,bg='white')
+#         L.pack()
+#
+#     def makeToolBar(self):
+#         toolbar = Frame(self,cursor='hand2',relief=SUNKEN,bd=2)
+#         toolbar.pack(side=BOTTOM,fill=X)
+#         Button(toolbar,text='Quit',command=self.quit).pack(side=RIGHT)
+#         Button(toolbar,text='Hello',command=self.greeting).pack(side=LEFT)
+#
+#     def makeMenuBar(self):
+#         self.menubar = Menu(self.master)
+#         self.master.config(menu=self.menubar)
+#         self.fileMenu()
+#         self.editMenu()
+#         self.imageMenu()
+#
+#     def fileMenu(self):
+#         pulldown = Menu(self.menubar)
+#         pulldown.add_command(label='Open...',command=self.notdone)
+#         pulldown.add_command(label='Quit...',command=self.quit)
+#         self.menubar.add_cascade(label='File',underline=0,menu=pulldown)
+#
+#     def editMenu(self):
+#         pulldown = Menu(self.menubar)
+#         pulldown.add_command(label='Paste',command=self.notdone)
+#         pulldown.add_command(label='Spam',command=self.greeting)
+#         pulldown.add_separator()
+#         pulldown.add_command(label='Delete',command=self.greeting)
+#         pulldown.entryconfig(4,state=DISABLED)
+#         self.menubar.add_cascade(label='Edit',underline=0,menu=pulldown)
+#
+#     def imageMenu(self):
+#         photoFiles = ('./images/1.jpg','./images/2.jpg','./images/3.png')
+#         pulldown = Menu(self.menubar)
+#         self.photoObjs = []
+#         for file in photoFiles:
+#             img = PhotoImage(file=file)
+#             pulldown.add_command(image=img,command=self.notdone)
+#             self.photoObjs.append(img)
+#         self.menubar.add_cascade(label='Image',underline=0,menu=pulldown)
+#
+#     def greeting(self):
+#         showinfo('greeting','Greetings')
+#
+#     def notdone(self):
+#         showerror('Not implemented','Not yet avaliable')
+#
+#     def quit(self):
+#         if askyesno('Verify quit','Are you sure you want to quit?'):
+#             Frame.quit(self)
+#
+# if __name__ == '__main__':
+#     NewMenuDemo().mainloop()
