@@ -1114,61 +1114,154 @@ print('\n')
 #     root.mainloop()
 
 
-# Example9.11
-from tkinter import *
-from tkinter.simpledialog import askstring
-from tkinter.filedialog import asksaveasfilename
-from quitter import Quitter
-from scrolledtext import ScrolledText
+# # Example9.11
+# from tkinter import *
+# from tkinter.simpledialog import askstring
+# from tkinter.filedialog import asksaveasfilename
+# from quitter import Quitter
+# from scrolledtext import ScrolledText
+#
+# class SimpleEditor(ScrolledText):
+#     def __init__(self,parent=None,file=None):
+#         frm = Frame(parent)
+#         frm.pack()
+#         Button(frm, text='Save',command=self.onSave).pack(side=LEFT)
+#         Button(frm, text='Cut', command=self.onCut).pack(side=LEFT)
+#         Button(frm, text='Paste', command=self.onPaste).pack(side=LEFT)
+#         Button(frm, text='Find', command=self.onFind).pack(side=LEFT)
+#         Quitter(frm).pack(side=LEFT)
+#         ScrolledText.__init__(self,parent,file=file)
+#         self.text.config(font=('courier',9,'normal'))
+#
+#     def onSave(self):
+#         filename = asksaveasfilename()
+#         if filename:
+#             alltext = self.gettext()
+#             open(filename,'w').write(alltext)
+#
+#     def onCut(self):
+#         text = self.text.get(SEL_FIRST,SEL_LAST)
+#         self.text.delete(SEL_FIRST,SEL_LAST)
+#         self.clipboard_clear
+#         self.clipboard_append(text)
+#
+#     def onPaste(self):
+#         try:
+#             text = self.selection_get(selection='CLIPBOARD')
+#             self.text.insert(INSERT,text)
+#         except TclError:
+#             pass
+#
+#     def onFind(self):
+#         target = askstring('SimpleEditor','Search String?')
+#         if target:
+#             where = self.text.search(target,INSERT,END)
+#             if where:
+#                 print(where)
+#                 pastit = where + ('+%dc' % len(target))
+#                 self.text.tag_remove(SEL,'1.0',END)
+#                 self.text.tag_add(SEL,where,pastit)
+#                 self.text.mark_set(INSERT,pastit)
+#                 self.text.see(INSERT)
+#                 self.text.focus()
+#
+# if __name__ == '__main__':
+#     if len(sys.argv) > 1:
+#         SimpleEditor(file=sys.argv[1]).mainloop()
+#     else:
+#         SimpleEditor().mainloop()
 
-class SimpleEditor(ScrolledText):
-    def __init__(self,parent=None,file=None):
-        frm = Frame(parent)
-        frm.pack()
-        Button(frm, text='Save',command=self.onSave).pack(side=LEFT)
-        Button(frm, text='Cut', command=self.onCut).pack(side=LEFT)
-        Button(frm, text='Paste', command=self.onPaste).pack(side=LEFT)
-        Button(frm, text='Find', command=self.onFind).pack(side=LEFT)
-        Quitter(frm).pack(side=LEFT)
-        ScrolledText.__init__(self,parent,file=file)
-        self.text.config(font=('courier',9,'normal'))
 
-    def onSave(self):
-        filename = asksaveasfilename()
-        if filename:
-            alltext = self.gettext()
-            open(filename,'w').write(alltext)
+# from tkinter import *
+# from tkinter.simpledialog import *
+# root = Tk()
+# frm = Frame(root).pack()
+# # Button(frm,text='test',command=lambda: askstring('SimpleEditor','Search String?')).pack()
+# a = askstring('Input','What s your name?')
+# print(a)
+# root.mainloop()
+# # help(askstring)
+# # askstring('Input', 'What is your name?')
+# # a = askstring('Input','What s your name?')
+# # print(a)
+# # a = askfloat('Float','How much?')
+# # target = askstring('SimpleEditor','Search String?')
+# from tkinter.filedialog import asksaveasfilename
 
-    def onCut(self):
-        text = self.text.get(SEL_FIRST,SEL_LAST)
-        self.text.delete(SEL_FIRST,SEL_LAST)
-        self.clipboard_clear
-        self.clipboard_append(text)
 
-    def onPaste(self):
-        try:
-            text = self.selection_get(selection='CLIPBOARD')
-            self.text.insert(INSERT,text)
-        except TclError:
-            pass
+# # Example9.13
+# from tkinter import *
+# from PIL.ImageTk import PhotoImage
+#
+# canvas = Canvas(width=525,height=300,bg='white')
+# canvas.pack(expand=YES,fill=BOTH)
+#
+# canvas.create_line(100,100,200,200)
+# canvas.create_line(100,200,200,300)
+# for i in range(1,20,2):
+#     canvas.create_line(0,i,50,i)
+#
+# canvas.create_oval(10,10,200,200,width=2,fill='blue')
+# canvas.create_arc(200,200,300,100)
+# canvas.create_rectangle(200,200,300,300,width=5,fill='red')
+# canvas.create_line(0,300,150,150,width=10,fill='green')
+#
+# photo =PhotoImage(file='./images/1.jpg')
+# canvas.create_image(325,25,image=photo,anchor=NW)
+#
+# widget = Label(canvas,text='Spam',fg='white',bg='black')
+# widget.pack()
+#
+# canvas.create_window(100,100,window=widget)
+# canvas.create_text(100,280,text='Ham')
+# mainloop()
 
-    def onFind(self):
-        target = askstring('SimpleEditor','Search String?')
-        if target:
-            where = self.text.search(target,INSERT,END)
-            if where:
-                print(where)
-                pastit = where + ('+%dc' % len(target))
-                self.text.tag_remove(SEL,'1.0',END)
-                self.text.tag_add(SEL,where,pastit)
-                self.text.mark_set(INSERT,pastit)
-                self.text.see(INSERT)
-                self.text.focus()
 
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        SimpleEditor(file=sys.argv[1]).mainloop()
-    else:
-        SimpleEditor().mainloop()
+# # Example9.16
+# from tkinter import *
+# trace = False
+#
+# class CanvasEventsDemo:
+#     def __init__(self,parent=None):
+#         canvas = Canvas(width=300,height=300,bg='beige')
+#         canvas.pack()
+#         canvas.bind('<ButtonPress-1>',self.onStart)
+#         canvas.bind('<B1-Motion>',self.onGrow)
+#         canvas.bind('<Double-1>',self.onClear)
+#         canvas.bind('<ButtonPress-3>',self.onMove)
+#         self.canvas = canvas
+#         self.drawn = None
+#         self.kinds = [canvas.create_oval,canvas.create_rectangle]
+#
+#     def onStart(self,event):
+#         self.shape = self.kinds[0]
+#         self.kinds = self.kinds[1:] + self.kinds[:1]
+#         self.start = event
+#         self.drawn = None
+#
+#     def onGrow(self,event):
+#         canvas = event.widget
+#         if self.drawn:
+#             canvas.delete(self.drawn)
+#         objectID = self.shape(self.start.x,self.start.y,event.x,event.y)
+#         if trace:
+#             print(objectID)
+#         self.drawn = objectID
+#
+#     def onClear(self,event):
+#         event.widget.delete('all')
+#
+#     def onMove(self,event):
+#         if self.drawn:
+#             if trace:
+#                 print(self.drawn)
+#             canvas = event.widget
+#             diffX,diffY = (event.x-self.start.x),(event.y-self.start.y)
+#             canvas.move(self,diffX,diffY)
+#             self.start = event
+#
+# if __name__ == '__main__':
+#     CanvasEventsDemo()
+#     mainloop()
 
 
