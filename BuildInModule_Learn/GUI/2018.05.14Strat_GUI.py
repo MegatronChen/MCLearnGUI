@@ -1265,3 +1265,103 @@ print('\n')
 #     mainloop()
 
 
+# # Example9.18
+# from tkinter import *
+#
+# colors = ['red','green','orange','white','yellow','blue']
+#
+# r = 0
+# for c in colors:
+#     Label(text=c,relief=RIDGE,width=25).grid(row=r,column=0)
+#     Entry(bg=c,relief=SUNKEN,width=50).grid(row=r,column=1)
+#     r += 1
+#
+# mainloop()
+
+
+# # Example8.19
+# from tkinter import *
+#
+# colors = ['red','green','orange','white','yellow','blue']
+# #
+# def gridbox(parent):
+#     row = 0
+#     for color in colors:
+#         lab = Label(parent,text=color,relief=RIDGE,width=25)
+#         ent = Entry(parent,bg=color,relief=SUNKEN,width=50)
+#         lab.grid(row=row,column=0)
+#         ent.grid(row=row,column=1)
+#         ent.insert(0,'grid')
+#         row += 1
+#
+# def packbox(parent):
+#     for color in colors:
+#         row = Frame(parent)
+#         lab = Label(row,text=color,relief=RIDGE,width=25)
+#         ent = Entry(row,bg=color,relief=SUNKEN,width=50)
+#         row.pack(side=TOP)
+#         lab.pack(side=LEFT)
+#         ent.pack(side=RIGHT)
+#         ent.insert(0,'pack')
+# #
+# # if __name__ == '__main__':
+# #     root = Tk()
+# #     gridbox(Toplevel())
+# #     packbox(Toplevel())
+# #     Button(root,text='Quit',command=root.quit).pack()
+# #     mainloop()
+#
+#
+# # Example9.20
+# from tkinter import *
+#
+# root = Tk()
+#
+# Label(root,text='Grid:').pack()
+# frm = Frame(root,bd=5,relief=RAISED)
+# frm.pack(padx=5,pady=5)
+# gridbox(frm)
+#
+# Label(root,text='Pack').pack()
+# frm = Frame(root,bd=5,relief=RAISED)
+# frm.pack(padx=5,pady=5)
+# packbox(frm)
+#
+# Button(root,text='Quit',command=root.quit).pack()
+# mainloop()
+
+
+# Example9.22
+from tkinter import *
+
+colors = ['red','white','blue']
+
+def gridbox(root):
+    Label(root,text='Grid').grid(columnspan=2)
+    row = 1
+    for color in colors:
+        lab = Label(root,text=color,relief=RIDGE,width=25)
+        ent = Entry(root,bg=color,relief=SUNKEN,width=50)
+        lab.grid(row=row,column=0,sticky=NSEW)
+        ent.grid(row=row,column=1,sticky=NSEW)
+        root.rowconfigure(row,weight=1)
+        row += 1
+    root.columnconfigure(0,weight=1)
+    root.columnconfigure(1,weight=1)
+
+def packbox(root):
+    Label(root,text='Pack').pack()
+    for color in colors:
+        row = Frame(root)
+        lab = Label(row,text=color,relief=RIDGE,width=25)
+        ent = Entry(row,bg=color,relief=SUNKEN,width=50)
+        row.pack(side=TOP,expand=YES,fill=BOTH)
+        lab.pack(side=LEFT,expand=YES,fill=BOTH)
+        ent.pack(side=RIGHT,expand=YES,fill=BOTH)
+
+root = Tk()
+gridbox(Toplevel())
+packbox(Toplevel())
+Button(root,text='Quit',command=root.quit).pack()
+mainloop()
+
