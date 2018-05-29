@@ -1331,37 +1331,100 @@ print('\n')
 # mainloop()
 
 
-# Example9.22
-from tkinter import *
+# # Example9.22
+# from tkinter import *
+#
+# colors = ['red','white','blue']
+#
+# def gridbox(root):
+#     Label(root,text='Grid').grid(columnspan=2)
+#     row = 1
+#     for color in colors:
+#         lab = Label(root,text=color,relief=RIDGE,width=25)
+#         ent = Entry(root,bg=color,relief=SUNKEN,width=50)
+#         lab.grid(row=row,column=0,sticky=NSEW)
+#         ent.grid(row=row,column=1,sticky=NSEW)
+#         root.rowconfigure(row,weight=1)
+#         row += 1
+#     root.columnconfigure(0,weight=1)
+#     root.columnconfigure(1,weight=1)
+#
+# def packbox(root):
+#     Label(root,text='Pack').pack()
+#     for color in colors:
+#         row = Frame(root)
+#         lab = Label(row,text=color,relief=RIDGE,width=25)
+#         ent = Entry(row,bg=color,relief=SUNKEN,width=50)
+#         row.pack(side=TOP,expand=YES,fill=BOTH)
+#         lab.pack(side=LEFT,expand=YES,fill=BOTH)
+#         ent.pack(side=RIGHT,expand=YES,fill=BOTH)
+#
+# root = Tk()
+# gridbox(Toplevel())
+# packbox(Toplevel())
+# Button(root,text='Quit',command=root.quit).pack()
+# mainloop()
 
-colors = ['red','white','blue']
 
-def gridbox(root):
-    Label(root,text='Grid').grid(columnspan=2)
-    row = 1
-    for color in colors:
-        lab = Label(root,text=color,relief=RIDGE,width=25)
-        ent = Entry(root,bg=color,relief=SUNKEN,width=50)
-        lab.grid(row=row,column=0,sticky=NSEW)
-        ent.grid(row=row,column=1,sticky=NSEW)
-        root.rowconfigure(row,weight=1)
-        row += 1
-    root.columnconfigure(0,weight=1)
-    root.columnconfigure(1,weight=1)
+# # Example9.23
+# from tkinter import *
+#
+# for i in range(5):
+#     for j in range(4):
+#         lab = Label(text='%d.%d' % (i,j),relief=RIDGE)
+#         lab.grid(row=i,column=j,sticky=NSEW)
+#
+# mainloop()
 
-def packbox(root):
-    Label(root,text='Pack').pack()
-    for color in colors:
-        row = Frame(root)
-        lab = Label(row,text=color,relief=RIDGE,width=25)
-        ent = Entry(row,bg=color,relief=SUNKEN,width=50)
-        row.pack(side=TOP,expand=YES,fill=BOTH)
-        lab.pack(side=LEFT,expand=YES,fill=BOTH)
-        ent.pack(side=RIGHT,expand=YES,fill=BOTH)
 
-root = Tk()
-gridbox(Toplevel())
-packbox(Toplevel())
-Button(root,text='Quit',command=root.quit).pack()
-mainloop()
+# # Example9.25
+# from tkinter import *
+#
+# numrow,numcol = 5,4
+# rows = []
+# for i in range(numrow):
+#     cols = []
+#     for j in range(numcol):
+#         ent = Entry(relief=RIDGE)
+#         ent.grid(row=i,column=j,sticky=NSEW)
+#         ent.insert(END,'%d.%d' %(i,j))
+#         cols.append(ent)
+#     rows.append(cols)
+#
+# # sums = []
+# # for i in range(numcol):
+# #     lab = Label(text='?',relief=SUNKEN)
+# #     lab.grid(rows=numrow,column=i,sticky=NSEW)
+# #     sums.append(lab)
+#
+# def onPrint():
+#     for row in rows:
+#         for col in row:
+#             print(col.get(),end=' ')
+#         print()
+#     print()
+#
+# def onSum():
+#     tots = [0] * numcol
+#     for i in range(numcol):
+#         for j in range(numrow):
+#             tots[i] += eval(rows[j][i].get())
+#     for i in range(numcol):
+#         sums[i].config(text=str(tots[i]))
+#
+# def onClear():
+#     for row in rows:
+#         for col in cols:
+#             col.delete('0',END)
+#             col.insert(END,'0.0')
+#     for sum in sums:
+#         sum.config(text='?')
+#
+# import sys
+# Button(text='Sum',command=onSum).grid(row=numrow+1,column=0)
+# Button(text='Print',command=onPrint).grid(row=numrow+1,column=1)
+# Button(text='Clear',command=onClear).grid(row=numrow+1,column=2)
+# Button(text='Quit',command=sys.exit).grid(row=numrow+1,column=3)
+# mainloop()
+
 
