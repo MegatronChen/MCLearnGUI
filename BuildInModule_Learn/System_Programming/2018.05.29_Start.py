@@ -89,3 +89,111 @@ import os
 #         os._exit(0)
 #
 # print('Main process exiting')
+
+
+# # Example5.3
+# import os
+# # help(os.fork)
+#
+# parm = 0
+# while True:
+#     parm += 1
+#     pid = os.fork()
+#     if pid == 0:
+#         os.execlp('python','python','child.py',str(parm))
+#         assert False,'error starting program'
+#     else:
+#         print('Child is',pid)
+#         if input() == 'q':break
+
+
+# # Example5.5
+# import _thread
+#
+# def child(tid):
+#     print('Hello from thread',tid)
+#
+# def parent():
+#     i = 0
+#     while True:
+#         i += 1
+#         _thread.start_new_thread(child,(i,))
+#         if input() == 'q':
+#             break
+#
+# parent()
+
+
+# # Example5.5-2
+# import _thread
+#
+# def action(i):
+#     print(i**32)
+#
+# class Power:
+#     def __init__(self,i):
+#         self.i = i
+#     def action(self):
+#         print(self.i**32)
+#
+# _thread.start_new_thread(action,(2,))
+#
+# _thread.start_new_thread((lambda : action(2)),())
+#
+# obj = Power(2)
+# _thread.start_new_thread(obj.action,())
+
+
+# # Example5.6
+# import _thread as thread,time
+#
+# def counter(myID,count):
+#     for i in range(count):
+#         time.sleep(1)
+#         print('[%s] => %s'% (myID,i))
+#
+# for i in range(5):
+#     thread.start_new_thread(counter,(i,5))
+#     time.sleep(6)
+#     print('Main thread exiting.')
+
+
+# # Example5.7
+# import _thread as thread
+# stdoutmutex = thread.allocate_lock()
+# exitmutexs = [thread.allocate_lock() for i in range(10)]
+#
+# def counter(myID,count):
+#     for i in range(count):
+#         stdoutmutex.acquire()
+#         print('[%s] => %s' % (myID, i))
+#         stdoutmutex.release()
+#     exitmutexs[myID].acquire()
+#
+# for i in range(10):
+#     thread.start_new_thread(counter,(i,100))
+#     for mutex in exitmutexs:
+#         while not mutex.locked():
+#             pass
+#     print('Main thread exiting.')
+
+
+# Example5.10
+import _thread as thread,time
+
+stdoutmutex = thread.allocate_lock()
+numthreads = 5
+exitmutexes = [thread.allocate_lock() for i in range(numthreads)]
+
+def counter(myID,count,mutex):
+    for i in range(count):
+        time.sleep(1/(myID+1))
+        with mutex:
+            print('[%s] => %s' % (myID, i))
+    exitmutexes[myID].acquire()
+
+for i in range(numthreads):
+    thread.start_new_thread(counter,(i,5,stdoutmutex))
+
+while not all(mutex.locked() for mutex in exitmutexes):time.sleep(0.25)
+print('Main thread exiting.')
