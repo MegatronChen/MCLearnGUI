@@ -178,22 +178,106 @@ import os
 #     print('Main thread exiting.')
 
 
-# Example5.10
-import _thread as thread,time
+# # Example5.10
+# import _thread as thread,time
+#
+# stdoutmutex = thread.allocate_lock()
+# numthreads = 5
+# exitmutexes = [thread.allocate_lock() for i in range(numthreads)]
+#
+# def counter(myID,count,mutex):
+#     for i in range(count):
+#         time.sleep(1/(myID+1))
+#         with mutex:
+#             print('[%s] => %s' % (myID, i))
+#     exitmutexes[myID].acquire()
+#
+# for i in range(numthreads):
+#     thread.start_new_thread(counter,(i,5,stdoutmutex))
+#
+# while not all(mutex.locked() for mutex in exitmutexes):time.sleep(0.25)
+# print('Main thread exiting.')
 
-stdoutmutex = thread.allocate_lock()
-numthreads = 5
-exitmutexes = [thread.allocate_lock() for i in range(numthreads)]
 
-def counter(myID,count,mutex):
-    for i in range(count):
-        time.sleep(1/(myID+1))
-        with mutex:
-            print('[%s] => %s' % (myID, i))
-    exitmutexes[myID].acquire()
+# # Example5.11
+# import threading
+#
+# class Mythread(threading.Thread):
+#     def __init__(self,myID,count,mutex):
+#         self.myID = myID
+#         self.count = count
+#         self.mutex = mutex
+#         threading.Thread.__init__(self)
+#
+#     def run(self):
+#         for i in range(self.count):
+#             with self.mutex:
+#                 print('[{0}] => {1}'.format(self.myID,i))
+#
+#
+# stdoutmutex = threading.Lock()
+# threads = []
+# for i in range(10):
+#     thread = Mythread(i,100,stdoutmutex)
+#     thread.start()
+#     threads.append(thread)
+#
+# for thread in threads:
+#     thread.start()
+# print('Main thread exiting.')
 
-for i in range(numthreads):
-    thread.start_new_thread(counter,(i,5,stdoutmutex))
 
-while not all(mutex.locked() for mutex in exitmutexes):time.sleep(0.25)
-print('Main thread exiting.')
+# # Example-page207
+# import threading,_thread
+#
+# def action(i):
+#     print(i**32)
+#
+# class Mythread(threading.Thread):
+#     def __init__(self,i):
+#         self.i = i
+#         threading.Thread.__init__(self)
+#     def run(self):
+#         print(self.i**32)
+# Mythread(2).start()
+#
+# thread = threading.Thread(target=(lambda: action(2)))
+# thread.start()
+#
+# threading.Thread(target=action,args=(2,)).start()
+#
+# _thread.start_new_thread(action,(2,))
+
+
+# Example5.14
+numconsumers = 2
+numproducers = 4
+nummessages = 4
+
+import _thread as thread,queue,time
+safeprint = thread.allocate_lock()
+dataQueue = queue.Queue()
+
+def producer(idnum):
+    for msgnum in range(nummessages):
+        time.sleep(idnum)
+        dataQueue.put('[producer id=%d,count=%d]' % (idnum,msgnum))
+
+def consumer(idnum):
+    while True:
+        time.sleep(0.1)
+        try:
+            data = dataQueue.get(block=False)
+        except queue.Empty:
+            pass
+        else:
+            with safeprint:
+                print('consumer',idnum,'got =>',data)
+
+if __name__ == '__main__':
+    for i in range(numconsumers):
+        thread.start_new_thread(consumer,(i,))
+    for i in range(numproducers):
+        thread.start_new_thread(producer,(i,))
+    time.sleep((numproducers-1)*nummessages + 1)
+    print('Main thread exiting.')
